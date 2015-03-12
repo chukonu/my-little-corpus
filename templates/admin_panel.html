@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+	<div class="container">
+		<h1>Data, data, data...</h1>
+        <p>This is a toolkit for translators and interpreters. It offers to store translations under different collections. Use it to explore patterns.</p>
+        <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('admin_crud', model='translation', action='new') }}">Submit New Translation &raquo;</a></p>
+	</div>
+</div>
+<div class="container">
+	<h1>Recent</h1>
+	<div class="list-group">
+		{% for item in items %}
+		<a href="{{ url_for('admin_crud', model='collection', action='view') }}?id={{item.key.id()}}" class="list-group-item">{{ item }}</a>
+		{% endfor %}
+		</table>		
+	</div>
+	<hr>
+	<footer>
+        <p>&copy; Joseph Chan 2014</p>
+    </footer>
+</div>
+</div>
+{% endblock %}

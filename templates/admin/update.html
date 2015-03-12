@@ -1,0 +1,52 @@
+{% extends "admin/base.html" %}
+{% block title %}
+Editing a {{ model.title() }}
+{% endblock %}
+
+{% block main %}
+
+  <div>
+  	<form class="form-horizontal" role="form" method="post" action="" enctype="multipart/form-data">
+  	  <legend>Edit: {{ legend }}</legend>
+      <fieldset>
+        {% for field in fields %}
+        <div class="form-group">
+        	    {{ field.render()|safe }}
+        </div>
+        {% endfor %}
+      </fieldset>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default btn-lg">Save</button>
+        </div>
+      </div>
+  	</form>
+	{% if children %}
+	<div class="panel panel-default">
+		<div class="panel-heading">Translations<span class="badge pull-right">{{ children.count() }}</span></div>
+<!-- 		<div class="panel-body">
+			<p>...</p>
+		</div> -->
+		<div class="list-group">
+			{% for child in children %}
+			<a href="/{{ child.key.id() }}?direction={{ item.stream }}" class="list-group-item" data-toggle="modal" data-target="#myModal">{{ child }}</a>
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+  </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block custom_script %}
+<script>
+$('body').on('hidden.bs.modal', '.modal', function () {
+  $(this).removeData('bs.modal');
+});
+</script>
+{% endblock %}

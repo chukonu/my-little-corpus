@@ -1,0 +1,52 @@
+<style>
+.modal-body p:lang(zh-Hant) {
+	font-family: "微軟正黑體", "Microsoft JhengHei", "新細明體", "PMingLiU", "細明體", "MingLiU", serif;
+	font-size: 26px;
+}
+.modal-body p:lang(en) {
+	font-size: 22px;
+}
+</style>
+<script>
+function tts(){
+  var speech = document.createElement('audio');
+  speech.src = "http://tts-api.com/tts.mp3?q=" + encodeURIComponent(document.getElementById('modal-english-text').innerHTML);
+  speech.play();
+}
+function tts_cn(){
+	var speech = document.createElement('audio');
+	speech.src = 'http://api.voicerss.org/?key=75c5ff46c6854eccb69837c392b9ba95&hl=zh-tw&src=' + encodeURIComponent(document.getElementById('modal-chinese-text').innerHTML);
+	speech.play();
+}
+</script>
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title" id="myModalLabel">Translation <small>{{ translation.date.strftime("%b %d") }} <small>{{ translation.author }}</small></small></h4>
+</div>
+<div class="modal-body">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-6">
+				<p {{ "id='modal-english-text'"|safe if source_locale == "en" }}{{ "id='modal-chinese-text'"|safe if source_locale == "zh-Hant" }} lang="{{ source_locale }}">{{ translation.source_text }}</p>
+			</div>
+			<div class="col-xs-6">
+				<p {{ "id='modal-english-text'"|safe if target_locale == "en" }}{{ "id='modal-chinese-text'"|safe if source_locale == "zh-Hant" }} lang="{{ target_locale }}">{{ translation.target_text }}</p>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-6">
+				{{ '<button type="button" class="btn btn-default btn-xs pull-right" onclick="tts()"><span class="glyphicon glyphicon-headphones"></span></button>'|safe if source_locale == "en" }}
+				{{ '<button type="button" class="btn btn-default btn-xs pull-right" onclick="tts_cn()"><span class="glyphicon glyphicon-headphones"></span></button>'|safe if source_locale == "zh-Hant" }}
+			</div>
+			<div class="col-xs-6">
+				{{ '<button type="button" class="btn btn-default btn-xs pull-right" onclick="tts()"><span class="glyphicon glyphicon-headphones"></span></button>'|safe if target_locale == "en" }}
+				{{ '<button type="button" class="btn btn-default btn-xs pull-right" onclick="tts_cn()"><span class="glyphicon glyphicon-headphones"></span></button>'|safe if target_locale == "zh-Hant" }}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>

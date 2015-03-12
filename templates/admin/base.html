@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block section %}
+{% block title %}{% endblock %}  &middot; {% endblock %}
+
+{% block navbar %}
+<li><a href="/">Home</a></li>
+<li class="active"><a href="{{ url_for('admin_crud', model=model, action='all') }}">{{model_plural}}</a></li>
+<!-- <li><a href="{{ url_for('admin_panel') }}">Toolkit</a></li> -->
+{% endblock %}
+
+{% block content %}
+
+<div class="container main-content">
+	{% if msg %}
+	<div class="alert alert-success">{{ msg }}</div>
+	
+	{% endif %}
+	
+	{% block main %}
+	
+	{% endblock %}
+</div>
+
+{% endblock %}

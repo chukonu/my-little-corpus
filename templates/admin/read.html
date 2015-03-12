@@ -1,0 +1,54 @@
+{% extends "admin/base.html" %}
+
+{% block title%}
+{{ model_plural }}
+{% endblock %}
+
+{% block main %}
+
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading">{{ model_plural }}</div>
+		<div class="panel-body">
+			<div class="pull-right bottom">
+			  {% if items %}
+				  {{items_count}} items{% if items_count > per_page %}, {{per_page}} per page{% endif %}
+			  {% endif %}
+			</div>
+			<a class="btn btn-default" href="{{ url_for('admin_crud', model=model, action='new') }}">Create New {{ model.title() }}</a>
+		</div>
+		
+		<!-- Table -->
+		<div class="table-responsive">
+			<table class="table table-hover">
+			  <thead>
+				<tr>
+				  <td><span class="glyphicon glyphicon-folder-open"></span></td>
+				  <td><span class="glyphicon glyphicon-calendar"></span></td>
+				</tr>
+			  </thead>
+			  <tbody>
+				{% for item in items %}
+					<tr>
+						<td>{{item}}</td>
+						<td width="100">{{item.date|safe}}</td>
+						<td width=50>
+							<a href="{{ url_for('admin_crud', model=model, action='edit') }}?id={{item.key.id()}}">Edit</a>
+						</td>
+						<td width=50>
+							<a href="{{ url_for('admin_crud', model=model, action='delete') }}?id={{item.key.id()}}">Delete</a>
+						</td>
+					</tr>
+				{% endfor %}
+			  </tbody>
+			</table>
+		  
+			{% if cursor %}
+				<a class="btn" href="?cursor={{cursor}}">more..</a>
+			{% endif %}
+			
+		</div>
+	</div>
+
+
+{% endblock %}

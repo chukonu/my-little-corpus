@@ -1,0 +1,45 @@
+{% extends "templates/base.html" %}
+{% block title %}My Little Corpus{% endblock %}
+{% block style %}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="starter-template">
+    <h1>My Little Corpus</h1>
+    <p class="lead">Hello, {{ username }}</p>
+    
+  </div>
+</div>
+
+<div class="container">
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Submit a Translation</h2>
+      <p>A <strong>Translation</strong> is a pair of bilingual texts of any length that records how a translator or an interpreter proceeds a source text. </p>
+      <p>You create an instance of Translation with information about the translator, the source text, the translated text, the date, and whether it takes place in translation or interpreting. You may or may not save it under one Collection. </p>
+      <p>Note that for the time being, if you are submitting to a certain Collection, do it in order, as the order cannot be changed afterwards. </p>
+      <p>输入一份语料。</p>
+      <p><a class="btn btn-default" href="submit-translation" role="button">Go &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Create a Collection</h2>
+      <p>A <strong>Collection</strong> of a pluralty of Translations helps to organise Translations and can displays the Translations in a complete context. </p>
+      <p>建立章目。</p>
+      <p><a class="btn btn-default" href="create-collection" role="button">Go &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Bird's-Eye View</h2>
+      <p>View this Corpus to find out trends, patterns, and more. </p>
+      <p>Search any keyword you want. The Corpus will show all the records that match your query. Its page of search results is very reader-friendly. </p>
+      <p>The Corpus also remembers search history. In the future, it will be able to monitor a list of keywords. </p>
+      <p>检索语料库。</p>
+      <p><a class="btn btn-default" href="#" role="button" disabled="disabled">Go &raquo;</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

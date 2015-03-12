@@ -1,0 +1,51 @@
+{% extends "admin/base.html" %}
+{% block title %}
+{{ item }}
+{% endblock %}
+
+{% block style %}
+.collection-view {
+  padding: 40px 15px;
+}
+{% endblock %}
+
+{% block main %}
+<div class="collection-view text-center">
+	<h1>{{ item }}</h1>
+	<p class="text-muted"><span class="glyphicon glyphicon-time"></span> {{ item.date.strftime("%d %b %Y") }}</p>
+</div>
+<div class="container">
+	{% if children_sorted %}
+	{% for group in children_sorted %}
+	<div class="panel {{ 'panel-primary' if group[0].date == item.date else 'panel-default' }}">
+		<div class="panel-heading">{{ group[0].date.strftime("%d %b %Y") }}<a href="{{ url_for('admin_crud', model='translation', action='new') }}?collection={{ item.key.urlsafe() }}&date={{ group[0].date.strftime('%Y-%m-%d') }}&author={{ group[0].author }}" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-plus"></span></a></div>
+<!-- 		<div class="panel-body">
+			
+		</div> -->
+		
+		<div class="list-group">
+			{% for child in group %}
+			<a href="/{{ child.key.id() }}?direction={{ item.stream }}" class="list-group-item" data-toggle="modal" data-target="#myModal">{{ child }}</a>
+			{% endfor %}
+		</div>
+		
+	</div>
+	{% endfor %}
+	{% endif %}
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block custom_script %}
+<script>
+$('body').on('hidden.bs.modal', '.modal', function () {
+  $(this).removeData('bs.modal');
+});
+
+</script>
+{% endblock %}
